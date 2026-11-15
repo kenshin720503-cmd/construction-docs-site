@@ -13,3 +13,13 @@ create table if not exists public.inquiries (
 alter table public.inquiries enable row level security;
 revoke all on public.inquiries from anon, authenticated;
 -- 정책은 만들지 않는다: 브라우저(공개 키)로는 접근 불가, 서버(/api)만 접근
+
+-- 유입 채널 (UTM) — 2026-11-15 추가
+alter table public.inquiries
+  add column if not exists utm_source text,
+  add column if not exists utm_medium text,
+  add column if not exists utm_campaign text,
+  add column if not exists utm_term text,
+  add column if not exists utm_content text,
+  add column if not exists referrer text,
+  add column if not exists landing_page text;
